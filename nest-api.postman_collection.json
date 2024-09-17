@@ -1,0 +1,77 @@
+{
+	"info": {
+		"_postman_id": "e18c002d-6ea3-46ee-9e41-77033fa8df48",
+		"name": "nest-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26468850"
+	},
+	"item": [
+		{
+			"name": "get list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{nest_host}}:{{nest_port}}/users",
+					"protocol": "http",
+					"host": [
+						"{{nest_host}}"
+					],
+					"port": "{{nest_port}}",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"truonglq\",\n    \"password\": \"123456\",\n    \"firstName\": \"Ly\",\n    \"lastName\": \"Truong\",\n    \"hihi\": \"123131\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{nest_host}}:{{nest_port}}/users",
+					"protocol": "http",
+					"host": [
+						"{{nest_host}}"
+					],
+					"port": "{{nest_port}}",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{nest_host}}:{{nest_port}}/users/123",
+					"protocol": "http",
+					"host": [
+						"{{nest_host}}"
+					],
+					"port": "{{nest_port}}",
+					"path": [
+						"users",
+						"123"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
