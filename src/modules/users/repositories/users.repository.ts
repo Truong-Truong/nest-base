@@ -2,7 +2,9 @@ import { UsersDto } from '../dto/users.dto';
 
 export class UsersRepository {
   insertUser(userClear: UsersDto): UsersDto {
-    console.log('insert user', userClear);
+    userClear.id = 1;
+    userClear.created_at = new Date();
+    userClear.created_by = 1;
     return userClear;
   }
 }

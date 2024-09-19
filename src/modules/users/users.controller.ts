@@ -10,21 +10,16 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { UsersDto } from './dto/users.dto';
-// import { ModuleRef } from '@nestjs/core';
 import { UsersService } from './services/users.service';
-import { IFbConfig } from './interfaces/config.interface';
+import { SystemLogger } from '../logger/services/system.logger';
 
 @Controller('users')
 export class UsersController {
-  //   constructor(private moduleRef: ModuleRef) {}
   constructor(
     private readonly usersService: UsersService,
-    @Inject('APP_FB_CONFIG') private readonly fbConfig: IFbConfig,
-    @Inject('APP_FB_CONFIG_EDITED') private readonly fbConfigEdited: IFbConfig,
-  ) {
-    console.log('fbConfig', fbConfig);
-    console.log('fbConfigEdited', fbConfigEdited);
-  }
+    @Inject('SYSTEM_LOGGER')
+    private readonly logger: SystemLogger,
+  ) {}
 
   @Get()
   getAllUsers() {
@@ -44,17 +39,18 @@ export class UsersController {
 
   @UsePipes(new ValidationPipe())
   @Post()
-  createUser(@Body() user: UsersDto): UsersDto {
-    console.log('user from fe', user);
+  async createUser(@Body() user: UsersDto): Promise<any> {
+    this.logger.info('user from fe', user);
     // const userClear = this.moduleRef.get(UsersService).createUser(user);
-    const result = UsersDto.plainToInstance(this.usersService.createUser(user));
-    console.log('result', result);
+    // const result = UsersDto.plainToClass(this.usersService.createUser(user));
+    const result = await this.usersService.createUser(user);
+    this.logger.info('result', [result]);
     return result;
   }
 
   @Get('/:id')
   getUser(@Param('id', ParseIntPipe) id: number) {
-    console.log(id);
+    this.logger.info(id);
     return {
       id,
       username: 'truong',

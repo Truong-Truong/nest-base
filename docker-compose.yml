@@ -1,0 +1,15 @@
+version: '3.9'
+services:
+  nest-mysql:
+    image: mysql:8.0
+    ports:
+      - '3367:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: base_nest
+      MYSQL_USER: base_nest_user
+      MYSQL_PASSWORD: base_nest_pw
+    volumes:
+      # - ./env/docker/mysql/custom.cnf:/etc/mysql/conf.d/custom.cnf
+      # data mapping
+      - ./docker/data/mysql:/var/lib/mysql

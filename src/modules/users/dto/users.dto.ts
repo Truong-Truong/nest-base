@@ -1,9 +1,13 @@
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { IsNotEmpty, Length } from 'class-validator';
-import { BaseDto } from 'src/common/base.dto';
+import { BaseDto } from 'src/shares/base.dto';
 
 export class UsersDto extends BaseDto {
+  @Expose()
+  id: number;
+
   @IsNotEmpty()
+  @Length(1, 50)
   @Expose()
   username!: string;
 
@@ -15,18 +19,21 @@ export class UsersDto extends BaseDto {
   password: string;
 
   @IsNotEmpty()
-  @Length(1, 10)
+  @Length(1, 50)
   @Expose()
-  firstName: string;
+  first_name: string;
 
-  @Length(1, 10)
   @IsNotEmpty()
+  @Length(1, 50)
   @Expose()
-  lastName: string;
+  last_name: string;
 
   @Transform(({ obj }) => `${obj.firstName} ${obj.lastName}`)
   @Exclude({
     toClassOnly: true,
   })
-  fullName: string;
+  full_name: string;
+
+  @Expose()
+  is_active: boolean;
 }

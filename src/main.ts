@@ -1,11 +1,14 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { Logger } from '@nestjs/common';
+
+import appConfig from './configs/app.config';
 
 async function bootstrap(): Promise<void> {
+  const logger = new Logger();
   const app = await NestFactory.create(AppModule);
-  const C_PORT = 3333;
-  await app.listen(C_PORT, () => {
-    console.log(`app start with port: ${C_PORT}`);
+  await app.listen(appConfig().app_port, () => {
+    logger.log(`app start with port: ${appConfig().app_port}`);
   });
 }
 
