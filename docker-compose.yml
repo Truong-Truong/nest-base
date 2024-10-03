@@ -13,3 +13,23 @@ services:
       # - ./env/docker/mysql/custom.cnf:/etc/mysql/conf.d/custom.cnf
       # data mapping
       - ./docker/data/mysql:/var/lib/mysql
+  nest-localstack:
+    image: localstack/localstack-pro:latest-amd64
+    container_name: nest_localstack
+    environment:
+      AWS_ACCESS_KEY_ID: DUMMY_AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: DUMMY_AWS_SECRET_ACCESS_KEY
+      AWS_DEFAULT_REGION: ap-southeast-1
+      DEFAULT_REGION: ap-southeast-1
+      SERVICES: s3,dynamodb,lambda
+      PERSISTENCE: 1
+      EAGER_SERVICE_LOADING: 1
+      HOSTNAME: localstack.local
+      DYNAMODB_OPTIMIZE_DB_BEFORE_STARTUP: 1
+      LOCALSTACK_AUTH_TOKEN: ls-GiKA3732-HAhI-rive-4388-JEzifElI6ead
+      PROVIDER_OVERRIDE_S3: v3
+    ports:
+      - 4566:4566
+    volumes:
+      - ./docker/data/localstack:/var/lib/localstack
+      - /var/run/docker.sock:/var/run/docker.sock
