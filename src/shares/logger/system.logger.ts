@@ -3,8 +3,8 @@ import { Injectable, Logger } from '@nestjs/common';
 @Injectable()
 export class SystemLogger {
   private logger: Logger;
-  constructor(context?: string) {
-    this.logger = new Logger(context);
+  constructor() {
+    this.logger = new Logger();
   }
 
   info(message: any, ...optionalParams: [...any, string?]): void {

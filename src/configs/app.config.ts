@@ -1,10 +1,11 @@
 // import * as path from 'path';
-import { IAppConfig } from 'src/shares/app.interface';
+import { IAppConfig } from '@app/shares/app.interface';
 
 export default (): IAppConfig => ({
   app_env: process.env.NODE_ENV,
   app_port: parseInt(process.env.PORT, 10) || 3333,
   app_name: process.env.APP_NAME,
+  app_pagination_limit: 10,
   //   static_dir: path.dirname(__dirname) + '/statics/',
   static_dir: '/statics/',
   mysql_master_config: {

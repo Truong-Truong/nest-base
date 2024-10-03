@@ -1,18 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { AbstractLogger, LogLevel, LogMessage, QueryRunner } from 'typeorm';
-import { SystemLogger } from './system.logger';
+// import { SystemLogger } from './system.logger';
+import { SystemLogger } from '@app/shares/logger/system.logger';
 
 @Injectable()
 export class SqlLogger extends AbstractLogger {
   private logger: SystemLogger;
-  constructor(context?: string) {
+  constructor() {
     super();
-    this.logger = new SystemLogger(context);
+    this.logger = new SystemLogger();
   }
 
   logQuery(query: string, parameters?: any[], queryRunner?: QueryRunner) {
-    this.logger.info('Query', {
+    this.logger.debug('Query', {
       query,
       parameters,
     });
@@ -46,15 +47,15 @@ export class SqlLogger extends AbstractLogger {
         case 'log':
         case 'schema-build':
         case 'migration':
-          this.logger.info(message.message);
+          this.logger.debug(message.message);
           break;
 
         case 'info':
         case 'query':
           if (message.prefix) {
-            this.logger.info(message.prefix, message.message);
+            this.logger.debug(message.prefix, message.message);
           } else {
-            this.logger.info(message.message);
+            this.logger.debug(message.message);
           }
           break;
 

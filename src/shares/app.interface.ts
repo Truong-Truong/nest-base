@@ -2,6 +2,7 @@ export interface IAppConfig {
   app_env: string;
   app_name: string;
   app_port: number;
+  app_pagination_limit: number;
   static_dir: string;
   mysql_master_config: IDbConfig;
 }
