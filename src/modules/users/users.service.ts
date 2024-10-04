@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { SystemLogger } from '@app/shares/logger/system.logger';
+import { SystemLogger } from '@app/libs/logger/system.logger';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '@app/entities/users.entity';
 import { UsersRepository } from '@users/users.repository';
@@ -8,7 +8,7 @@ import { UserCreateRequest } from './requests/user-create.request';
 import { UserCreateResponse } from './responses/user-create.response';
 import { plainToClass } from 'class-transformer';
 import { UserListRequest } from './requests/user-list.request';
-import { Paginator } from '@app/libs/Paginator';
+import { Paginator } from '@app/libs/paginator.lib';
 
 @Injectable()
 export class UsersService {

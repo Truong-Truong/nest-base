@@ -1,3 +1,4 @@
+// import { IsFileType } from '@app/validations/is-file-type.validator';
 import { IsNotEmpty, Length } from 'class-validator';
 
 export class UserCreateRequest {
@@ -16,4 +17,9 @@ export class UserCreateRequest {
   @IsNotEmpty()
   @Length(1, 50)
   last_name: string;
+
+  // @IsFileType(['image/jpeg', 'image/png'], {
+  //   message: 'Avatar must be a JPEG or PNG image',
+  // })
+  // avt: Express.Multer.File;
 }

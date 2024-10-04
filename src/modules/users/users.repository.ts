@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Repository, DataSource } from 'typeorm';
 import { UserEntity } from '@app/entities/users.entity';
 import { UserListRequest } from './requests/user-list.request';
-import { Paginator } from '@app/libs/Paginator';
+import { Paginator } from '@app/libs/paginator.lib';
 
 @Injectable()
 export class UsersRepository extends Repository<UserEntity> {

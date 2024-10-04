@@ -3,7 +3,7 @@ import * as path from 'path';
 config({ path: path.resolve(process.cwd(), '.env') });
 
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { SqlLogger } from '@app/shares/logger/sql.logger';
+import { SqlLogger } from '@app/libs/logger/sql.logger';
 import appConfig from '@app/configs/app.config';
 import { IDbConfig } from './shares/app.interface';
 import AllEntities from '@app/entities/all.entity';

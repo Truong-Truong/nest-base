@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@nestjs/common';
 import { AbstractLogger, LogLevel, LogMessage, QueryRunner } from 'typeorm';
-// import { SystemLogger } from './system.logger';
-import { SystemLogger } from '@app/shares/logger/system.logger';
+import { SystemLogger } from '@app/libs/logger/system.logger';
 
 @Injectable()
 export class SqlLogger extends AbstractLogger {

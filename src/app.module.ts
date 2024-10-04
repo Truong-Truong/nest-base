@@ -8,6 +8,7 @@ import { AppDataSource } from './typeorm-data-source';
   imports: [
     ConfigModule.forRoot({
       load: [appConfig],
+      isGlobal: true,
     }),
     TypeOrmModule.forRoot({
       ...AppDataSource.options,
