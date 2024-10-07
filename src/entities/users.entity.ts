@@ -18,7 +18,7 @@ export class UserEntity extends BaseEntity {
   protected sortFields: string[] = ['id', 'username'];
 
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @Column({
     length: 50,

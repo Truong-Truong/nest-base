@@ -9,6 +9,7 @@ import { UserCreateResponse } from './responses/user-create.response';
 import { plainToClass } from 'class-transformer';
 import { UserListRequest } from './requests/user-list.request';
 import { Paginator } from '@app/libs/paginator.lib';
+import { Storage } from '@app/libs/storage.lib';
 
 @Injectable()
 export class UsersService {
@@ -18,6 +19,8 @@ export class UsersService {
     private readonly logger: SystemLogger,
     @Inject('USER_REPOSITORY')
     private readonly usersRepositoryNew: UsersRepository,
+    @Inject('MY_STORAGE')
+    private readonly myStorage: Storage,
   ) {}
 
   async createUser(user: UserCreateRequest): Promise<UserCreateResponse> {
@@ -43,5 +46,16 @@ export class UsersService {
         }),
       ) ?? []
     );
+  }
+
+  async uploadAvt(id: string, file: Express.Multer.File): Promise<boolean> {
+    try {
+      const disk = this.myStorage.cloud();
+      await disk.write(`/${id}/${file.originalname}`, file.buffer);
+    } catch (error) {
+      this.logger.error('upload file failed', error);
+      return false;
+    }
+    return true;
   }
 }

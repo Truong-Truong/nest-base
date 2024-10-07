@@ -6,7 +6,7 @@ import {
   MaxFileSizeValidator,
   Param,
   ParseFilePipe,
-  ParseIntPipe,
+  ParseUUIDPipe,
   Post,
   Req,
   UploadedFile,
@@ -56,7 +56,7 @@ export class UsersController {
   @Post('/:id/upload-avt')
   @UseInterceptors(FileInterceptor('file'))
   async uploadAvt(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseUUIDPipe) id: string,
     @UploadedFile(
       new ParseFilePipe({
         validators: [
@@ -67,23 +67,11 @@ export class UsersController {
     )
     file: Express.Multer.File,
   ): Promise<boolean> {
-    this.logger.debug('id', id);
-    this.logger.debug('file', file.buffer.toString());
-    return true;
+    return this.usersService.uploadAvt(id, file);
   }
 
   @Get('/:id')
-  getUser(@Param('id', ParseIntPipe) id: number) {
-    this.logger.info(id);
-    return {
-      id,
-      username: 'truong',
-      password: '123456',
-    };
-  }
-
-  @Post('/:id')
-  getUsers(@Param('id', ParseIntPipe) id: number) {
+  getUser(@Param('id', ParseUUIDPipe) id: number) {
     this.logger.info(id);
     return {
       id,

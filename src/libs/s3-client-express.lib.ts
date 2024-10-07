@@ -6,15 +6,15 @@ import {
 } from '@aws-sdk/client-s3';
 import { sleep } from './common.lib';
 import { SystemLogger } from '@app/libs/logger/system.logger';
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class S3ClientExpress {
   private readonly s3Client: S3Client;
   constructor(
-    @Inject(SystemLogger) private readonly logger: SystemLogger,
-    @Inject(ConfigService) private readonly configService: ConfigService,
+    private readonly logger: SystemLogger,
+    private readonly configService: ConfigService,
     s3Config: S3ClientConfig,
   ) {
     if (this.configService.get<string>('app_env') == 'local') {

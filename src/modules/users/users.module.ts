@@ -9,9 +9,8 @@ import AllEntities from '@app/entities/all.entity';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LogEntryInterceptor } from '@app/middlewares/log-entry.interceptor';
 import { SystemLogger } from '@app/libs/logger/system.logger';
-import { S3ClientConfig } from '@aws-sdk/client-s3';
-import { IFileSystemS3Config } from '@app/shares/app.interface';
-import { S3ClientExpressProvider } from '@app/shares/s3-client-express.provider';
+import { IFileSystems } from '@app/shares/app.interface';
+import { StorageProvider } from '@app/shares/storage.provider';
 
 @Module({
   controllers: [UsersController],
@@ -22,7 +21,7 @@ import { S3ClientExpressProvider } from '@app/shares/s3-client-express.provider'
   providers: [
     UsersService,
     SystemLogger,
-    S3ClientExpressProvider,
+    StorageProvider,
     {
       provide: 'USER_REPOSITORY',
       useClass: UsersRepository,
@@ -32,28 +31,15 @@ import { S3ClientExpressProvider } from '@app/shares/s3-client-express.provider'
       useClass: LogEntryInterceptor,
     },
     {
-      provide: 'S3ClientExpress',
-      inject: [ConfigService, S3ClientExpressProvider],
+      provide: 'MY_STORAGE',
+      inject: [ConfigService, StorageProvider],
       useFactory: (
         configService: ConfigService,
-        s3ClientExpressProvider: S3ClientExpressProvider,
+        storageProvider: StorageProvider,
       ) => {
-        const s3FileSystem = configService.get<IFileSystemS3Config>(
-          'fileSystems.disks.s3',
-        );
-        const s3Config: S3ClientConfig = {
-          region: s3FileSystem.region,
-        };
-        if (
-          s3FileSystem.aws_access_key_id &&
-          s3FileSystem.aws_secret_access_key
-        ) {
-          s3Config.credentials = {
-            accessKeyId: s3FileSystem.aws_access_key_id,
-            secretAccessKey: s3FileSystem.aws_secret_access_key,
-          };
-        }
-        return s3ClientExpressProvider.createS3Client(s3Config);
+        const fileSystemsConfig: IFileSystems =
+          configService.get<IFileSystems>('fileSystems');
+        return storageProvider.createStorage(fileSystemsConfig);
       },
     },
   ],
