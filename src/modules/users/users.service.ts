@@ -10,7 +10,8 @@ import { plainToClass } from 'class-transformer';
 import { UserListRequest } from './requests/user-list.request';
 import { Paginator } from '@app/libs/paginator.lib';
 import { Storage } from '@app/libs/storage.lib';
-
+import Cache from 'cache-manager';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 @Injectable()
 export class UsersService {
   constructor(
@@ -21,6 +22,7 @@ export class UsersService {
     private readonly usersRepositoryNew: UsersRepository,
     @Inject('MY_STORAGE')
     private readonly myStorage: Storage,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
   async createUser(user: UserCreateRequest): Promise<UserCreateResponse> {
@@ -35,6 +37,14 @@ export class UsersService {
     query: UserListRequest,
     paginator: Paginator | null,
   ): Promise<UserCreateResponse[]> {
+    const cacheKey = 'key_test_2';
+    const value = await this.cacheManager.get(cacheKey);
+    if (!value) {
+      this.logger.error('------empty and set-------');
+      await this.cacheManager.set(cacheKey, 'hello 123');
+    } else {
+      this.logger.error('-------exist------', value);
+    }
     const users = await this.usersRepositoryNew.findByConditions(
       query,
       paginator,
