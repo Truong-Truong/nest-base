@@ -7,6 +7,7 @@ export interface IAppConfig {
   mysql_master_config: IDbConfig;
   ip_local: string;
   port_s3_local: number;
+  redis?: IRedisConfig;
 }
 
 export interface IDbConfig {
@@ -38,4 +39,9 @@ export interface IFileSystemS3Config {
   prefix: string;
   aws_access_key_id?: string;
   aws_secret_access_key?: string;
+}
+
+export interface IRedisConfig {
+  host: string;
+  port: number;
 }

@@ -23,6 +23,7 @@ import { Paginator } from '@app/libs/paginator.lib';
 import { ConfigService } from '@nestjs/config';
 import { FileInterceptor } from '@nestjs/platform-express';
 
+// @UseGuards(IpWhitelistGuard)
 @LogEntry()
 @Controller('users')
 export class UsersController {

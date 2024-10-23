@@ -20,4 +20,8 @@ export default (): IAppConfig => ({
     username: process.env.DB_USERNAME || 'base_nest_user1',
     password: process.env.DB_PASSWORD || 'base_nest_pw',
   },
+  redis: {
+    host: process.env.REDIS_HOST,
+    port: parseInt(process.env.REDIS_PORT, 10) || 6379,
+  },
 });
