@@ -1,5 +1,15 @@
 version: '3.9'
 services:
+  nest-redis:
+    image: docker.io/bitnami/redis:7.4
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - '6380:6379'
+    volumes:
+      - ./docker/data/redis:/bitnami/redis/data
   nest-mysql:
     image: mysql:8.0
     ports:
