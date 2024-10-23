@@ -7,12 +7,12 @@
 	},
 	"item": [
 		{
-			"name": "get list",
+			"name": "get user list",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://{{nest_host}}:{{nest_port}}/users",
+					"raw": "http://{{nest_host}}:{{nest_port}}/users?sort_field=id&sort_dir=0&limit=1&page=1",
 					"protocol": "http",
 					"host": [
 						"{{nest_host}}"
@@ -20,6 +20,43 @@
 					"port": "{{nest_port}}",
 					"path": [
 						"users"
+					],
+					"query": [
+						{
+							"key": "sort_field",
+							"value": "id"
+						},
+						{
+							"key": "sort_dir",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "1"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get order list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{nest_host}}:{{nest_port}}/orders",
+					"protocol": "http",
+					"host": [
+						"{{nest_host}}"
+					],
+					"port": "{{nest_port}}",
+					"path": [
+						"orders"
 					]
 				}
 			},
@@ -32,7 +69,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"truonglq\",\n    \"password\": \"123456\",\n    \"firstName\": \"Ly\",\n    \"lastName\": \"Truong\",\n    \"hihi\": \"123131\"\n}",
+					"raw": "{\n    \"username\": \"truong\",\n    \"password\": \"pw123456\",\n    \"first_name\": \"ly quang\",\n    \"last_name\": \"truong\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -68,6 +105,40 @@
 					"path": [
 						"users",
 						"123"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update avt",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": [
+								"/Users/truong.ly/Desktop/download.jpeg",
+								"/Users/truong.ly/Desktop/avarar_2.jpeg"
+							]
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{nest_host}}:{{nest_port}}/users/1ab437bd-b943-4eed-8eb9-307922e0e43a/upload-avt",
+					"protocol": "http",
+					"host": [
+						"{{nest_host}}"
+					],
+					"port": "{{nest_port}}",
+					"path": [
+						"users",
+						"1ab437bd-b943-4eed-8eb9-307922e0e43a",
+						"upload-avt"
 					]
 				}
 			},
