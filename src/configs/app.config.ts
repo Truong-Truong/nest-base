@@ -20,6 +20,15 @@ export default (): IAppConfig => ({
     username: process.env.DB_USERNAME || 'base_nest_user1',
     password: process.env.DB_PASSWORD || 'base_nest_pw',
   },
+  mysql_slave_config: {
+    type: 'mysql',
+    connection_name: process.env.SLAVE_DB_CONNECTION || 'mysql_slave',
+    host: process.env.SLAVE_DB_HOST || 'localhost',
+    port: parseInt(process.env.SLAVE_DB_PORT, 10) || 3367,
+    database: process.env.SLAVE_DB_DATABASE || 'base_nest',
+    username: process.env.SLAVE_DB_USERNAME || 'base_nest_user1',
+    password: process.env.SLAVE_DB_PASSWORD || 'base_nest_pw',
+  },
   redis: {
     host: process.env.REDIS_HOST,
     port: parseInt(process.env.REDIS_PORT, 10) || 6379,

@@ -13,6 +13,7 @@ export class SqlLogger extends AbstractLogger {
 
   logQuery(query: string, parameters?: any[], queryRunner?: QueryRunner) {
     this.logger.debug('Query', {
+      replicationMode: queryRunner?.getReplicationMode(),
       query,
       parameters,
     });
@@ -46,15 +47,22 @@ export class SqlLogger extends AbstractLogger {
         case 'log':
         case 'schema-build':
         case 'migration':
-          this.logger.debug(message.message);
+          this.logger.debug(message.message, {
+            replicationMode: queryRunner?.getReplicationMode(),
+          });
           break;
 
         case 'info':
         case 'query':
           if (message.prefix) {
-            this.logger.debug(message.prefix, message.message);
+            this.logger.debug(message.prefix, {
+              replicationMode: queryRunner?.getReplicationMode(),
+              message: message.message,
+            });
           } else {
-            this.logger.debug(message.message);
+            this.logger.debug(message.message, {
+              replicationMode: queryRunner?.getReplicationMode(),
+            });
           }
           break;
 

@@ -5,6 +5,7 @@ export interface IAppConfig {
   app_pagination_limit: number;
   static_dir: string;
   mysql_master_config: IDbConfig;
+  mysql_slave_config: IDbConfig;
   ip_local: string;
   port_s3_local: number;
   redis?: IRedisConfig;

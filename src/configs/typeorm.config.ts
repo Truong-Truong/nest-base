@@ -9,13 +9,28 @@ import { IDbConfig } from '@app/shares/app.interface';
 import AllEntities from '@app/entities/all.entity';
 
 const mysqlMasterConfig: IDbConfig = appConfig().mysql_master_config;
+const mysqlSalveConfig: IDbConfig = appConfig().mysql_slave_config;
 const options: DataSourceOptions = {
   type: mysqlMasterConfig.type as any,
-  host: mysqlMasterConfig.host,
-  port: mysqlMasterConfig.port,
-  username: mysqlMasterConfig.username,
-  password: mysqlMasterConfig.password,
-  database: mysqlMasterConfig.database,
+  replication: {
+    master: {
+      host: mysqlMasterConfig.host,
+      port: mysqlMasterConfig.port,
+      username: mysqlMasterConfig.username,
+      password: mysqlMasterConfig.password,
+      database: mysqlMasterConfig.database,
+    },
+    slaves: [
+      {
+        host: mysqlSalveConfig.host,
+        port: mysqlSalveConfig.port,
+        username: mysqlSalveConfig.username,
+        password: mysqlSalveConfig.password,
+        database: mysqlSalveConfig.database,
+      },
+    ],
+  },
+
   entities: [...AllEntities],
   synchronize: false, // must not use in prd env, replace with migration
   logging: true,
